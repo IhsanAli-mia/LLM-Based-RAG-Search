@@ -1,35 +1,43 @@
 
 # LLM-Based RAG System
+A powerful search application that combines web scraping with the Retrieval-Augmented Generation (RAG) approach to provide intelligent answers to user queries.
+Main packages used: 
+
 
 ## Overview
 
-This project is designed to create a Retrieval-Augmented Generation (RAG) system using a Large Language Model (LLM). The system integrates with an API to scrape content from the internet and uses an API to serve the LLM-generated answers. A simple front-end interface is provided to interact with the system. 
-Note: ONLY use the packages provided in the requirements.txt file (similar/alternative packages are ok only if they perform similar task/function). 
+This project consists of two main components:
 
-## Process Overview
+1. **Frontend (Streamlit)**: A clean, user-friendly interface where users can enter their queries and view the generated responses.
+2. **Backend (Flask)**: A service that handles the search process, content retrieval, and answer generation using a language model.
 
-1. **User Input via Streamlit Interface**:
-   - The user interacts with a Streamlit-based front-end where they can input their query.
+The application works by:
+- Taking a user query
+- Searching the web for relevant information using SerpAPI
+- Scraping and processing the content from top search results
+- Using a vector database (FAISS) to store and retrieve relevant context
+- Leveraging OpenAI's language models to generate comprehensive, contextually-aware answers
+- Maintaining conversational context across a session
 
-2. **Query Sent to Flask Backend**:
-   - The query entered by the user is sent from the Streamlit interface to a Flask backend via an API call.
+## Features
 
-3. **Internet Search and Article Scraping**:
-   - The Flask backend searches the internet for the query using a designated API. It retrieves the top relevant articles and scrapes their content, extracting only the useful text (headings and paragraphs).
+- **Web Search Integration**: Uses SerpAPI to find relevant web pages based on the user's query
+- **Content Extraction**: Employs the Newspaper3k library to extract clean text from web pages
+- **Vector Embedding**: Converts text into embeddings for semantic similarity search
+- **Session-Based Memory**: Maintains conversation history for contextual follow-up questions
+- **RAG Architecture**: Enhances LLM responses with retrieved web content for more accurate answers
 
-4. **Content Processing**:
-   - The scraped content is processed to create a coherent input, which is then passed to the LLM for generating a response.
+## Main Packages
 
-5. **LLM Response Generation**:
-   - The processed content and the user's query are used to generate a contextual answer using the LLM. The LLM is accessed via an API, and the generated response is returned to the Flask backend.
+- **Streamlit**: Powers the interactive web interface with minimal code
+- **Flask**: Runs the backend API service that processes queries and generates responses
+- **LangChain**: Orchestrates the RAG workflow, connecting the LLM with retrieval components
+- **FAISS**: Creates and manages the vector database for efficient similarity search
+- **SerpAPI**: Provides Google search results programmatically
+- **Newspaper3k**: Extracts clean text content from web pages
+- **OpenAI**: Connects to OpenAI's API for text embeddings and LLM responses
+- **python-dotenv**: Manages environment variables for API keys
 
-6. **Response Sent Back to Streamlit Interface**:
-   - The Flask backend sends the generated answer back to the Streamlit interface, where it is displayed to the user.
-
-## What we expect?
-We expect you to explore, understand the components and functionality, and demonstrate your ability to work with the provided tools and deliver a solution that meets the requirements. 
-
-Bonus points: If you use Langchain (or similar tools to add memory to the system) to make the chatbot conversational.
 ## Prerequisites
 
 - Python 3.8 or above
@@ -71,7 +79,7 @@ pip install -r requirements.txt
 
 ### Step 4: Set Up Environment Variables
 
-Create a `.env` file in the root directory and add your API keys in a way it can be accessed in the app.
+Create a `.env` file in the root directory as in `.env.example`
 
 
 ### Step 5: Run the Flask Backend
@@ -102,13 +110,3 @@ Open your web browser and go to `http://localhost:8501`. You can now interact wi
 - **streamlit_app/**: Contains the Streamlit front-end code.
 - **.env**: Stores API keys (make sure this file is not included in version control).
 - **requirements.txt**: Lists the project dependencies.
-
-## Task Instructions for Candidates
-
-You are required to complete the following:
-
-1. Implement the functionality to fetch, process, and generate responses from an LLM using the provided APIs.
-2. Integrate the APIs with the Flask backend.
-3. Display the results in the Streamlit frontend.
-
-Good luck!
